@@ -29,6 +29,8 @@ _* Required_
 | onFocus | function | Callback for text focusing. Parameter(s): `text`
 | onFocusOut | function | Callback for focus leaving editor. Parameter(s): `text`
 
+| inputId | string | Id for the input
+
 
 # Example
 ```javascript
@@ -44,12 +46,14 @@ class App extends React.Component {
       this._handleFocusOut = this._handleFocusOut.bind(this);
     }
 
-    _handleFocus(text) {
+    _handleFocus(text, id, event) {
         console.log('Focused with text: ' + text);
+        console.log('Input id: ' + id);
     }
 
-    _handleFocusOut(text) {
+    _handleFocusOut(text, id, event) {
         console.log('Left editor with text: ' + text);
+        console.log('Input id: ' + id);
     }
 
     render() {
@@ -57,6 +61,7 @@ class App extends React.Component {
             <EditableLabel text='Hello!'
                 labelClassName='myLabelClass'
                 inputClassName='myInputClass'
+                inputId="myInputId"
                 inputWidth='200px'
                 inputHeight='25px'
                 inputMaxLength='50'
