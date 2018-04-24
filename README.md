@@ -28,7 +28,6 @@ _* Required_
 | inputBorderWidth | string | Border width for the input in editing mode
 | onFocus | function | Callback for text focusing. Parameter(s): `text`
 | onFocusOut | function | Callback for focus leaving editor. Parameter(s): `text`
-
 | inputId | string | Id for the input
 
 
