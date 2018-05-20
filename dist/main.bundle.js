@@ -496,11 +496,11 @@ var EditableLabel = function (_React$Component) {
         value: function _handleFocus(event) {
             if (this.state.isEditing) {
                 if (typeof this.props.onFocusOut === 'function') {
-                    this.props.onFocusOut(this.state.text, this.props.inputId, event);
+                    this.props.onFocusOut(this.state.text, event);
                 }
             } else {
                 if (typeof this.props.onFocus === 'function') {
-                    this.props.onFocus(this.state.text, this.props.inputId, event);
+                    this.props.onFocus(this.state.text, event);
                 }
             }
 
@@ -554,6 +554,7 @@ var EditableLabel = function (_React$Component) {
                 _react2.default.createElement(
                     'label',
                     { className: this.props.labelClassName,
+                        id: this.props.labelId,
                         onClick: this._handleFocus,
                         style: {
                             fontSize: this.props.labelFontSize,
@@ -576,6 +577,7 @@ EditableLabel.propTypes = {
     isEditing: _propTypes2.default.bool,
 
     labelClassName: _propTypes2.default.string,
+    labelId: _propTypes2.default.string,
     labelFontSize: _propTypes2.default.string,
     labelFontWeight: _propTypes2.default.string,
 
@@ -587,8 +589,8 @@ EditableLabel.propTypes = {
     inputFontSize: _propTypes2.default.string,
     inputFontWeight: _propTypes2.default.string,
     inputClassName: _propTypes2.default.string,
-    inputBorderWidth: _propTypes2.default.string,
     inputId: _propTypes2.default.string,
+    inputBorderWidth: _propTypes2.default.string,
 
     onFocus: _propTypes2.default.func,
     onFocusOut: _propTypes2.default.func

@@ -16,6 +16,7 @@ _* Required_
 | text (*)| string | Text to be displayed on both the label and initially in the editor |
 | isEditing | bool | Flags whether the label should be in editor mode
 | labelClassName | string | Class name for the text styling
+| labelId | string | Id for the label
 | labelFontSize | string | Font size for the text 
 | labelFontWeight | string | Font weight for the text
 | inputMaxLength | number | Max length for the input in editing mode
@@ -25,17 +26,17 @@ _* Required_
 | inputFontSize | string | Font size for the input in editing mode
 | inputFontWeight | string | Font weight for the input in editing mode 
 | inputClassName | string | Class name for the input editor's styling
+| inputId | string | Id for the input
 | inputBorderWidth | string | Border width for the input in editing mode
 | onFocus | function | Callback for text focusing. Parameter(s): `text`
 | onFocusOut | function | Callback for focus leaving editor. Parameter(s): `text`
-| inputId | string | Id for the input
 
 
 # Example
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EditableLabel from 'react-inline-edit';
+import EditableLabel from 'react-inline-editing';
 
 class App extends React.Component {
     constructor(props){
@@ -45,20 +46,21 @@ class App extends React.Component {
       this._handleFocusOut = this._handleFocusOut.bind(this);
     }
 
-    _handleFocus(text, id, event) {
+    _handleFocus(text, event) {
         console.log('Focused with text: ' + text);
-        console.log('Input id: ' + id);
+        console.log('Label id: ' + event.target.id);        
     }
 
-    _handleFocusOut(text, id, event) {
+    _handleFocusOut(text, event) {
         console.log('Left editor with text: ' + text);
-        console.log('Input id: ' + id);
+        console.log('Input id: ' + event.target.id);
     }
 
     render() {
         return <div>
             <EditableLabel text='Hello!'
                 labelClassName='myLabelClass'
+                labelId='myLabelId'
                 inputClassName='myInputClass'
                 inputId="myInputId"
                 inputWidth='200px'

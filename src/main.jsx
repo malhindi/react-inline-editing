@@ -14,15 +14,15 @@ export default class EditableLabel extends React.Component {
         this._handleChange = this._handleChange.bind(this);
     }
     
-    _handleFocus() {
+    _handleFocus(event) {
     	if(this.state.isEditing) {
         	if(typeof this.props.onFocusOut === 'function') {
-        		this.props.onFocusOut(this.state.text);
+        		this.props.onFocusOut(this.state.text, event);
             }
         }
         else {
         	if(typeof this.props.onFocus === 'function') {
-	        	this.props.onFocus(this.state.text);
+	        	this.props.onFocus(this.state.text, event);
             }
         }
     
@@ -42,6 +42,7 @@ export default class EditableLabel extends React.Component {
         	return <div>
         	    <input type="text" 
                     className={this.props.inputClassName}
+                    id={this.props.inputId}
                     ref={(input) => { this.textInput = input; }}
                     value={this.state.text} 
                     onChange={this._handleChange}
@@ -63,6 +64,7 @@ export default class EditableLabel extends React.Component {
     
         return <div>
             <label className={this.props.labelClassName}
+                id={this.props.labelId}
                 onClick={this._handleFocus}
                 style={{
                 	fontSize: this.props.labelFontSize,
@@ -79,6 +81,7 @@ EditableLabel.propTypes = {
     isEditing: PropTypes.bool,
 
     labelClassName: PropTypes.string,
+    labelId: PropTypes.string,
     labelFontSize: PropTypes.string,
     labelFontWeight: PropTypes.string,
 
@@ -90,6 +93,7 @@ EditableLabel.propTypes = {
     inputFontSize: PropTypes.string,
     inputFontWeight: PropTypes.string,
     inputClassName: PropTypes.string,
+    inputId: PropTypes.string,
     inputBorderWidth: PropTypes.string,
 
     onFocus: PropTypes.func,
