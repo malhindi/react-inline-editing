@@ -6,68 +6,94 @@ export default class EditableLabel extends React.Component {
         super(props);
 
         this.state = {
-        	isEditing: this.props.isEditing || false,
-			text: this.props.text || "",
+            isEditing: this.props.isEditing || false,
+            text: this.props.text || "",
+            isTextarea: this.props.isTextarea || false
         };
-        
+
         this._handleFocus = this._handleFocus.bind(this);
         this._handleChange = this._handleChange.bind(this);
     }
-    
+
     _handleFocus(event) {
-    	if(this.state.isEditing) {
-        	if(typeof this.props.onFocusOut === 'function') {
-        		this.props.onFocusOut(this.state.text, event);
+        if (this.state.isEditing) {
+            if (typeof this.props.onFocusOut === 'function') {
+                this.props.onFocusOut(this.state.text, event);
             }
         }
         else {
-        	if(typeof this.props.onFocus === 'function') {
-	        	this.props.onFocus(this.state.text, event);
+            if (typeof this.props.onFocus === 'function') {
+                this.props.onFocus(this.state.text, event);
             }
         }
-    
-    	this.setState({
-        	isEditing: !this.state.isEditing,
+
+        this.setState({
+            isEditing: !this.state.isEditing,
         });
     }
-	
+
     _handleChange() {
-    	this.setState({
-        	text: this.textInput.value,
+        this.setState({
+            text: this.textInput.value,
         });
     }
 
     render() {
-    	if(this.state.isEditing) {
-        	return <div>
-        	    <input type="text" 
+        if (this.state.isEditing) {
+            if (this.state.isTextarea) {
+                return <div>
+                    <textarea
+                        className={this.props.inputClassName}
+                        id={this.props.inputId}
+                        ref={(input) => { this.textInput = input; }}
+                        value={this.state.text}
+                        onChange={this._handleChange}
+                        onBlur={this._handleFocus}
+                        style={{
+                            width: this.props.inputWidth,
+                            height: this.props.inputHeight,
+                            fontSize: this.props.inputFontSize,
+                            fontWeight: this.props.inputFontWeight,
+                            borderWidth: this.props.inputBorderWidth,
+
+                        }}  
+                        cols={this.props.textareaCols}
+                        placeholder={this.props.inputPlaceHolder}
+                        tabIndex={this.props.inputTabIndex}
+                        autoFocus >
+                    </textarea>
+                </div>
+            }
+
+            return <div>
+                <input type="text"
                     className={this.props.inputClassName}
                     id={this.props.inputId}
                     ref={(input) => { this.textInput = input; }}
-                    value={this.state.text} 
+                    value={this.state.text}
                     onChange={this._handleChange}
                     onBlur={this._handleFocus}
-                    style={{ 
-                    	width: this.props.inputWidth,
+                    style={{
+                        width: this.props.inputWidth,
                         height: this.props.inputHeight,
                         fontSize: this.props.inputFontSize,
                         fontWeight: this.props.inputFontWeight,
                         borderWidth: this.props.inputBorderWidth,
-               			
+
                     }}
                     maxLength={this.props.inputMaxLength}
                     placeholder={this.props.inputPlaceHolder}
                     tabIndex={this.props.inputTabIndex}
-                    autoFocus/>
-        	</div>
+                    autoFocus />
+            </div>
         }
-    
+
         return <div>
             <label className={this.props.labelClassName}
                 id={this.props.labelId}
                 onClick={this._handleFocus}
                 style={{
-                	fontSize: this.props.labelFontSize,
+                    fontSize: this.props.labelFontSize,
                     fontWeight: this.props.labelFontWeight,
                 }}>
                 {this.state.text}
@@ -79,6 +105,7 @@ export default class EditableLabel extends React.Component {
 EditableLabel.propTypes = {
     text: PropTypes.string.isRequired,
     isEditing: PropTypes.bool,
+    isTextarea: PropTypes.bool,
 
     labelClassName: PropTypes.string,
     labelId: PropTypes.string,
@@ -95,6 +122,8 @@ EditableLabel.propTypes = {
     inputClassName: PropTypes.string,
     inputId: PropTypes.string,
     inputBorderWidth: PropTypes.string,
+
+    textareaCols: PropTypes.number,
 
     onFocus: PropTypes.func,
     onFocusOut: PropTypes.func

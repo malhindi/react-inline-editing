@@ -15,6 +15,7 @@ _* Required_
 | -----| -------| -------- |
 | text (*)| string | Text to be displayed on both the label and initially in the editor |
 | isEditing | bool | Flags whether the label should be in editor mode
+| isTextarea | bool | Flags whether input type text or textarea
 | labelClassName | string | Class name for the text styling
 | labelId | string | Id for the label
 | labelFontSize | string | Font size for the text 
@@ -28,6 +29,7 @@ _* Required_
 | inputClassName | string | Class name for the input editor's styling
 | inputId | string | Id for the input
 | inputBorderWidth | string | Border width for the input in editing mode
+| textareaCols | number | Specifies the visible width of the textarea
 | onFocus | function | Callback for text focusing. Parameter(s): `text`
 | onFocusOut | function | Callback for focus leaving editor. Parameter(s): `text`
 
@@ -68,6 +70,16 @@ class App extends React.Component {
                 inputMaxLength='50'
                 labelFontWeight='bold'
                 inputFontWeight='bold'
+                onFocus={this._handleFocus}
+                onFocusOut={this._handleFocusOut}
+            />
+                <EditableLabel text='Hello this is a textarea!'
+                isTextarea={true}
+                labelClassName='myLabelClass'
+                labelId='myLabelId'
+                inputClassName='myInputClass'
+                inputId="myInputId"
+                textareaCols='50'
                 onFocus={this._handleFocus}
                 onFocusOut={this._handleFocusOut}
             />

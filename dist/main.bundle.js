@@ -483,7 +483,8 @@ var EditableLabel = function (_React$Component) {
 
         _this.state = {
             isEditing: _this.props.isEditing || false,
-            text: _this.props.text || ""
+            text: _this.props.text || "",
+            isTextarea: _this.props.isTextarea || false
         };
 
         _this._handleFocus = _this._handleFocus.bind(_this);
@@ -521,6 +522,34 @@ var EditableLabel = function (_React$Component) {
             var _this2 = this;
 
             if (this.state.isEditing) {
+                if (this.state.isTextarea) {
+                    return _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement('textarea', {
+                            className: this.props.inputClassName,
+                            id: this.props.inputId,
+                            ref: function ref(input) {
+                                _this2.textInput = input;
+                            },
+                            value: this.state.text,
+                            onChange: this._handleChange,
+                            onBlur: this._handleFocus,
+                            style: {
+                                width: this.props.inputWidth,
+                                height: this.props.inputHeight,
+                                fontSize: this.props.inputFontSize,
+                                fontWeight: this.props.inputFontWeight,
+                                borderWidth: this.props.inputBorderWidth
+
+                            },
+                            cols: this.props.textareaCols,
+                            placeholder: this.props.inputPlaceHolder,
+                            tabIndex: this.props.inputTabIndex,
+                            autoFocus: true })
+                    );
+                }
+
                 return _react2.default.createElement(
                     'div',
                     null,
@@ -575,6 +604,7 @@ exports.default = EditableLabel;
 EditableLabel.propTypes = {
     text: _propTypes2.default.string.isRequired,
     isEditing: _propTypes2.default.bool,
+    isTextarea: _propTypes2.default.bool,
 
     labelClassName: _propTypes2.default.string,
     labelId: _propTypes2.default.string,
@@ -591,6 +621,8 @@ EditableLabel.propTypes = {
     inputClassName: _propTypes2.default.string,
     inputId: _propTypes2.default.string,
     inputBorderWidth: _propTypes2.default.string,
+
+    textareaCols: _propTypes2.default.number,
 
     onFocus: _propTypes2.default.func,
     onFocusOut: _propTypes2.default.func
